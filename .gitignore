@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# excluded from public repo (kept locally)
+CLAUDE.md
+app/api/analyze/route.ts
+app/api/chat/route.ts
