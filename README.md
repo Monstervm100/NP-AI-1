@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NP-AI-1
 
-## Getting Started
+NP-AI-1 is a web app for exploring neuroimaging and brain-signal data. You upload a brain scan or an EEG recording, and it returns a plain-language report describing what the data shows and, where possible, which neurological condition the patterns are most consistent with.
 
-First, run the development server:
+## What it does
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Reads many formats.** Standard images (PNG, JPEG, WebP), NIfTI volumes (`.nii` / `.nii.gz`), DICOM slices (`.dcm`), zipped scan folders, and EEG recordings (`.edf`, EEGLAB `.set`).
+- **Analyzes brain scans.** MRI, PET, and CT images are examined by a vision AI model that describes the visible anatomy and flags findings across a large set of neurological conditions.
+- **Analyzes EEG signals.** Recordings are processed with signal analysis (FFT, band powers, peak alpha frequency) to characterize the brain's rhythmic activity.
+- **Reports honestly.** When a condition cannot be seen in the data provided (for example, a disorder that does not appear on a structural MRI), the report says so instead of guessing.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What it is not
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+NP-AI-1 is a research and educational tool, not a medical device. It does not provide a diagnosis and is not a substitute for evaluation by a qualified clinician. Its scan analysis relies on a general-purpose vision model rather than a system trained on labeled clinical scans, so results are exploratory and should never be used to make health decisions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How it works
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The app is built with Next.js and TypeScript. Uploaded files are parsed in the browser, then handed to the appropriate analysis path: scan images go to a vision model for interpretation, while EEG files are run through hand-written signal-processing code. The result is assembled into a readable report shown in the interface.
